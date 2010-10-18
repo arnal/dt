@@ -17,19 +17,9 @@ class Kohana_DT {
 		return new $class_name($value, $config);
 	}
 
-	protected function _set_config($config)
-	{
-		if(method_exists($this, '_init_config'))
-		{
-			$config = array_merge($config, $this->_init_config());
-		}
-		$this->_config = array_merge($config, $this->_config);
-	}
-
 	public function __construct($value=NULL, $config=array())
 	{
 		$this->_set_config($config);
-
 		if($value !== NULL)
 		{
 			$this->set($value);
@@ -50,29 +40,6 @@ class Kohana_DT {
 			}
 		}
 		$this->_value = $value;
-	}
-
-	public function render()
-	{
-		if($this->is_null())
-		{
-			return NULL;
-		}
-		return $this->_value;
-	}
-
-	public function __toString()
-	{
-		return (string) $this->render();
-	}
-
-	protected function _regex()
-	{
-		if(isset($this->_config['regex']))
-		{
-			return $this->_config['regex'];
-		}
-		return NULL;
 	}
 
 	public function is_valid($value=NULL)
@@ -106,10 +73,32 @@ class Kohana_DT {
 
 	public function is_null()
 	{
-		if($this->_value === NULL)
-			return TRUE;
+		return ($this->_value === NULL);
+	}
 
-		return FALSE;
+	public function input($name, $attributes=NULL)
+	{
+		return Form::input($name, $this->_input_value(), $attributes); 
+	}
+
+
+	public function render()
+	{
+		return (! $this->is_null()) ? $this->_value : NULL;
+	}
+
+	public function __toString()
+	{
+		return (string) $this->render();
+	}
+
+	protected function _set_config($config)
+	{
+		if(method_exists($this, '_init_config'))
+		{
+			$config = array_merge($config, $this->_init_config());
+		}
+		$this->_config = array_merge($config, $this->_config);
 	}
 
 	protected function _input_value()
@@ -120,10 +109,5 @@ class Kohana_DT {
 			$value = $this->render();
 		}
 		return $value;
-	}
-
-	public function input($name, $attributes=NULL)
-	{
-		return Form::input($name, $this->_input_value(), $attributes); 
 	}
 }
