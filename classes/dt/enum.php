@@ -6,7 +6,7 @@ class DT_Enum extends DT_String {
 
 	protected function _regex()
 	{
-		return '('.join($this->_possible_values,'|').')';
+		return '/^('.join(array_keys($this->_possible_values),'|').')$/';
 	}
 
 	public function input($name)

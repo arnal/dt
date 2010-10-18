@@ -7,6 +7,7 @@ class Kohana_DT {
 		'allow_null' => TRUE,
 		'regex' => NULL,
 		'rendered_input_value' => FALSE,
+		'filters' => array(),
 	);
 
 	static public function factory($class, $value=NULL, $config=array())
@@ -30,6 +31,13 @@ class Kohana_DT {
 		if(isset($this->_config['type']) AND (gettype($value) != $this->_config['type']))
 		{
 			settype(&$value, $this->_config['type']);
+		}
+		if(isset($this->_config['filters']))
+		{
+			foreach($this->_config['filters'] as $filter)
+			{
+				$value = call_user_func($filter, $value);
+			}
 		}
 		$this->_value = $value;
 	}
@@ -75,7 +83,7 @@ class Kohana_DT {
 
 			if($regex = $this->_regex())
 			{
-				if(!preg_match("/$regex/", $value))
+				if(!preg_match($regex, $value))
 					return FALSE;
 			}
 		}

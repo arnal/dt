@@ -3,14 +3,17 @@ Kohana DateType library
 
 Working with DT is pretty easy: 
 
-	$value = new DT_String("some string");
+	$email = DT_Email("example@example.org");
 
-	$valid = $value->is_valid(); 	// => TRUE
-	$valid = $value->is_null(); 	// => FALSE
-	print $value; 					// => "some string"
+	$email->is_valid(); 				// => TRUE
+	$email->is_null(); 					// => FALSE
+	print $value; 						// => "example@example.org"
+	
+	print $value->input('my_email');	
+	// => "<input type='text' name='my_email' value='example@example.org' />
+	
 
 Other examples:
 
-	$val = DT::factory('integer', 'some_string')->is_valid();	// => FALSE
-
+	DT_Email::factory('no-email')->is_valid(); // => FALSE
 
