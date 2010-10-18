@@ -8,6 +8,7 @@ class Kohana_DT {
 		'regex' => NULL,
 		'rendered_input_value' => FALSE,
 		'filters' => array(),
+		'rules' => array(),
 	);
 
 	static public function factory($class, $value=NULL, $config=array())
@@ -16,9 +17,18 @@ class Kohana_DT {
 		return new $class_name($value, $config);
 	}
 
+	protected function _set_config($config)
+	{
+		if(method_exists($this, '_init_config'))
+		{
+			$config = array_merge($config, $this->_init_config());
+		}
+		$this->_config = array_merge($config, $this->_config);
+	}
+
 	public function __construct($value=NULL, $config=array())
 	{
-		$this->_config = array_merge($this->_config, $config);
+		$this->_set_config($config);
 
 		if($value !== NULL)
 		{
@@ -81,13 +91,16 @@ class Kohana_DT {
 			if(isset($this->_config['type']) AND gettype($value) != $this->_config['type'])
 				return FALSE;
 
-			if($regex = $this->_regex())
+			if(isset($this->_config['rules']))
 			{
-				if(!preg_match($regex, $value))
-					return FALSE;
+				foreach($this->_config['rules'] as $rule)
+				{
+					$func_name = $rule[0];
+					if(! Validate::$func_name($value, @$rule[1], @$rule[2], @$rule[3]))
+						return FALSE;
+				}
 			}
 		}
-
 		return TRUE;
 	}
 
@@ -109,8 +122,8 @@ class Kohana_DT {
 		return $value;
 	}
 
-	public function input($name)
+	public function input($name, $attributes=NULL)
 	{
-		return Form::input($name, $this->_input_value()); 
+		return Form::input($name, $this->_input_value(), $attributes); 
 	}
 }

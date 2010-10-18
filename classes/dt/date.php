@@ -3,7 +3,9 @@
 class DT_Date extends DT_String {
 
 	protected $_config = array(
-		'regex' => '/^\d{4}-\d{2}-\d{2}$/',
+		'rules' => array(
+			array('regex', '/^\d{4}-\d{2}-\d{2}$/'),
+		),
 		'rendered_input_value' => TRUE,
 	);
 
