@@ -15,5 +15,5 @@ Working with DT is pretty easy:
 
 Other examples:
 
-	DT_Email::factory('no-email')->is_valid(); // => FALSE
+	DT::factory('wrong@email')->is_valid();	 // => FALSE
 
