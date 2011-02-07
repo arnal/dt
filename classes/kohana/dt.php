@@ -26,6 +26,11 @@ class Kohana_DT {
 		}
 	}
 
+	public function to_db()
+	{
+		return $this->_value;
+	}
+
 	public function set($value)
 	{
 		if(isset($this->_config['type']) AND (gettype($value) != $this->_config['type']))
@@ -52,6 +57,7 @@ class Kohana_DT {
 		{
 			return FALSE;
 		}
+		
 
 		if($value !== NULL)
 		{
@@ -81,7 +87,6 @@ class Kohana_DT {
 		return Form::input($name, $this->_input_value(), $attributes); 
 	}
 
-
 	public function render()
 	{
 		return (! $this->is_null()) ? $this->_value : NULL;
@@ -109,5 +114,11 @@ class Kohana_DT {
 			$value = $this->render();
 		}
 		return $value;
+	}
+
+	static public function factory_filter($value, $type)
+	{
+		$classname = 'DT_'.ucfirst($type);
+		return new $classname($value);
 	}
 }

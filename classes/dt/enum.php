@@ -15,10 +15,15 @@ class DT_Enum extends DT_String {
 	public function input($name, $attributes=NULL)
 	{
 		$values = $this->_config['possible_values'];
-		if((isset($this->config['allow_null']) AND ($this->config['allow_null'] == TRUE) OR !isset($this->config['allow_null'])))
+		if((isset($this->_config['allow_null']) AND ($this->_config['allow_null'] == TRUE) OR !isset($this->_config['allow_null'])))
 		{
-			$values = array_merge(array('' => '-- no select --'), $values);
+			$values = array_merge(array('' => '-- vyberte --'), $values);
 		}
 		return Form::select($name, $values, ($this->is_valid() ? $this->_value : NULL), $attributes);
+	}
+
+	public function render()
+	{
+		return @$this->_config['possible_values'][$this->_value];
 	}
 }
