@@ -69,7 +69,7 @@ class Kohana_DT {
 				foreach($this->_config['rules'] as $rule)
 				{
 					$func_name = $rule[0];
-					if(! Validate::$func_name($value, @$rule[1], @$rule[2], @$rule[3]))
+					if(! Valid::$func_name($value, @$rule[1], @$rule[2], @$rule[3]))
 						return FALSE;
 				}
 			}
@@ -99,11 +99,12 @@ class Kohana_DT {
 
 	protected function _set_config($config)
 	{
+		$this->_config = array_merge($this->_config, $config);
+
 		if(method_exists($this, '_init_config'))
 		{
-			$config = array_merge($config, $this->_init_config());
+			$this->_config = array_merge($this->_config, $this->_init_config());
 		}
-		$this->_config = array_merge($config, $this->_config);
 	}
 
 	protected function _input_value()
@@ -120,5 +121,10 @@ class Kohana_DT {
 	{
 		$classname = 'DT_'.ucfirst($type);
 		return new $classname($value);
+	}
+
+	public function raw()
+	{
+		return $this->_value;
 	}
 }

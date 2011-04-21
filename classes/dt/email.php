@@ -7,5 +7,4 @@ class DT_Email extends DT_String {
 			array('email'),
 		),
 	);
-
 }

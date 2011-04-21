@@ -22,7 +22,10 @@ class DT_Date extends DT_String {
 		}
 		elseif(preg_match('/([\d\?]+).([\d\?]+).(\d{4})/', $value, $m))
 		{
-			$value = $m[3].'-'.$m[2].'-'.$m[1];
+			$value = $m[3]
+						.'-'.(strlen($m[2])==2 ? $m[2] : ($m[2] == "?" ? "??" : "0".$m[2]))
+						.'-'.(strlen($m[1])==2 ? $m[1] : ($m[1] == "?" ? "??" : "0".$m[1]));
+
 		}
 		elseif(! $this->is_valid($value))
 		{
@@ -31,6 +34,7 @@ class DT_Date extends DT_String {
 				$value = date('Y-m-d', $time);
 			}
 		}
+
 		return parent::set($value);
 	}
 
