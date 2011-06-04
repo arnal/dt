@@ -87,14 +87,27 @@ class Kohana_DT {
 		return Form::input($name, $this->_input_value(), $attributes); 
 	}
 
-	public function render()
+	public function render($html = FALSE)
 	{
-		return (! $this->is_null()) ? $this->_value : NULL;
+		if($this->is_null())
+			return NULL;
+
+		return $html ? $this->_render_html() : $this->_render_string();
+	}
+
+	public function _render_string()
+	{
+		return $this->_value;
+	}
+
+	public function _render_html()
+	{
+		return $this->_render_string();
 	}
 
 	public function __toString()
 	{
-		return (string) $this->render();
+		return (string) $this->render(FALSE);
 	}
 
 	protected function _set_config($config)
