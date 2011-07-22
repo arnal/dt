@@ -50,4 +50,9 @@ class DT_Enum extends DT_String {
 	{
 		return $this->_config['possible_values'][($key == NULL ? $this->_value : $key)];
 	}
+
+	public function possible_values()
+	{
+		return $this->_config['possible_values'];
+	}
 }
