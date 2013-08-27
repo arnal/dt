@@ -35,7 +35,7 @@ class Kohana_DT {
 	{
 		if(isset($this->_config['type']) AND (gettype($value) != $this->_config['type']))
 		{
-			settype(&$value, $this->_config['type']);
+			settype($value, $this->_config['type']);
 		}
 		if(isset($this->_config['filters']))
 		{

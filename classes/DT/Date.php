@@ -38,7 +38,7 @@ class DT_Date extends DT_String {
 		return parent::set($value);
 	}
 
-	public function render()
+	public function render($html=FALSE)
 	{
 		if($this->is_valid() AND ! $this->is_null())
 		{

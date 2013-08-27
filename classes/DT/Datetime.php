@@ -10,6 +10,11 @@ class DT_DateTime extends DT_String {
 		'rendered_input_value' => TRUE,
 	);
 
+	public function input($name, $attributes=NULL)
+	{
+		return parent::input($name, array('class' => 'input-medium')); 
+	}
+
 	public function set($value)
 	{
 		if($value == '' OR $value === NULL)
@@ -30,7 +35,7 @@ class DT_DateTime extends DT_String {
 		return parent::set($value);
 	}
 
-	public function render()
+	public function render($html=FALSE)
 	{
 		if($this->is_valid() AND ! $this->is_null())
 		{

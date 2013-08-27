@@ -23,11 +23,11 @@ class DT_Enum extends DT_String {
 			$out = array();
 			foreach($values as $key=>$val)
 			{
-				$out[] = form::radio($name, $key, ($this->_value == $key), array('id'=>$name.'_'.$key)).'&nbsp;&nbsp;'.form::label($name.'_'.$key, $val);
+				$out[] = Form::radio($name, $key, ($this->_value == $key), array('id'=>$name.'_'.$key)).'&nbsp;&nbsp;<label for="'.$name.'_'.$key.'" style="display:inline;">'.$val.'</label>&nbsp;';
 			}
 			if((isset($this->_config['allow_null']) AND ($this->_config['allow_null'] == TRUE) OR !isset($this->_config['allow_null'])))
 			{
-				$out[] = form::radio($name, 0, ($this->_value == NULL)).'&nbsp;&nbsp'.form::label($name.'_'.$key, 'nezadáno');
+				$out[] = Form::radio($name, 0, ($this->_value == NULL)).'&nbsp;&nbsp<label for="'.$name.'_'.$key.'" style="display:inline;">Nezadáno</label>';
 			}
 			return join('&nbsp;&nbsp;&nbsp;&nbsp;', $out);
 		}
@@ -41,7 +41,7 @@ class DT_Enum extends DT_String {
 		}
 	}
 
-	public function render()
+	public function render($html=FALSE)
 	{
 		return @$this->_config['possible_values'][$this->_value];
 	}
