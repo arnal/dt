@@ -33,6 +33,11 @@ class DT_Enum extends DT_String {
 		}
 		else
 		{
+      // strip tags pokud je to select
+      foreach($values as $k=>$v)
+      {
+        $values[$k] = strip_tags($v);
+      }
 			if((isset($this->_config['allow_null']) AND ($this->_config['allow_null'] == TRUE) OR !isset($this->_config['allow_null'])))
 			{
 				$values = array_merge(array('' => '-- vyberte --'), $values);
