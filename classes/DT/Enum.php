@@ -4,6 +4,7 @@ class DT_Enum extends DT_String {
 
 	protected $_config = array(
 		'display_type' => 'select',
+    'null_title' => 'Nezadáno',
 	);
 
 	protected function _init_config()
@@ -27,7 +28,8 @@ class DT_Enum extends DT_String {
 			}
 			if((isset($this->_config['allow_null']) AND ($this->_config['allow_null'] == TRUE) OR !isset($this->_config['allow_null'])))
 			{
-				$out[] = Form::radio($name, 0, ($this->_value == NULL)).'&nbsp;&nbsp<label for="'.$name.'_'.$key.'" style="display:inline;">Nezadáno</label>';
+        $key = '0';
+				$out[] = Form::radio($name, 0, ($this->_value == NULL), array('id'=>$name.'_'.$key)).'&nbsp;&nbsp<label for="'.$name.'_'.$key.'" style="display:inline;">'.$this->_config['null_title'].'</label>';
 			}
 			return join('&nbsp;&nbsp;&nbsp;&nbsp;', $out);
 		}

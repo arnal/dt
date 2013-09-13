@@ -12,7 +12,7 @@ class DT_DateTime extends DT_String {
 
 	public function input($name, $attributes=NULL)
 	{
-		return parent::input($name, array('class' => 'input-medium')); 
+		return parent::input($name, array('class' => 'input-large','placeholder' => 'Např. "1.1.2013 10:00" ..')); 
 	}
 
 	public function set($value)

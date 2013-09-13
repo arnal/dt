@@ -31,6 +31,11 @@ class Kohana_DT {
 		return $this->_value;
 	}
 
+  public function set_raw($value)
+  {
+    $this->set($value);
+  }
+
 	public function set($value)
 	{
 		if(isset($this->_config['type']) AND (gettype($value) != $this->_config['type']))
@@ -140,4 +145,9 @@ class Kohana_DT {
 	{
 		return $this->_value;
 	}
+
+  public function config()
+  {
+    return $this->_config;
+  }
 }
