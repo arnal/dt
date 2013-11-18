@@ -5,7 +5,7 @@ class DT_DateTime extends DT_String {
 	protected $_config = array(
 		'allow_null' => TRUE,
 		'rules' => array(
-			array('regex', '/^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}|)$/'),
+			array('regex', '/^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2})?|)$/'),
 		),
 		'rendered_input_value' => TRUE,
 	);

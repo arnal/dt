@@ -20,10 +20,7 @@ class Kohana_DT {
 	public function __construct($value=NULL, $config=array())
 	{
 		$this->_set_config($config);
-		if($value !== NULL)
-		{
-			$this->set($value);
-		}
+	  $this->set($value);
 	}
 
 	public function to_db()
@@ -38,6 +35,14 @@ class Kohana_DT {
 
 	public function set($value)
 	{
+    // beforeset hook
+    $value = $this->before_set($value);
+
+    if($value == NULL)
+    {
+      return NULL;
+    }
+
 		if(isset($this->_config['type']) AND (gettype($value) != $this->_config['type']))
 		{
 			settype($value, $this->_config['type']);
@@ -50,7 +55,15 @@ class Kohana_DT {
 			}
 		}
 		$this->_value = $value;
+    
+    // afterset hook
+    $this->after_set();
 	}
+
+  public function after_set() {}
+  public function before_set($value) {
+    return $value;
+  }
 
 	public function is_valid($value=NULL)
 	{
@@ -145,6 +158,11 @@ class Kohana_DT {
 	{
 		return $this->_value;
 	}
+
+  public function set_raw($value)
+  {
+    $this->_value = $value;
+  }
 
   public function config()
   {

@@ -14,7 +14,7 @@ class DT_Boolean extends DT {
 
 	public function input($name, $attributes=NULL)
 	{
-		return Form::checkbox($name, 1, ($this->is_valid() ? $this->_value : NULL), $attributes) 
+		return Form::checkbox($name, 1, (boolean) $this->_value, $attributes) 
 				. ((isset($this->_config['msg']) AND $this->_config['msg']) ? '&nbsp;&nbsp;'.$this->_config['msg'] : '');
 	}
 }
