@@ -28,11 +28,6 @@ class Kohana_DT {
 		return $this->_value;
 	}
 
-  public function set_raw($value)
-  {
-    $this->set($value);
-  }
-
 	public function set($value)
 	{
     // beforeset hook
